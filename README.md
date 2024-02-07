@@ -1,64 +1,62 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+* Step 1: Laravel Setup
+composer create-project --prefer-dist laravel/laravel employee-management
+cd employee-management
+php artisan serve
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+* Step 2: Database Schema and Migrations
+php artisan make:migration create_employees_table
+php artisan make:migration create_provinces_table
+php artisan make:migration create_cities_table
+php artisan migrate
 
-## About Laravel
+* Step 3: Models
+php artisan make:model Employee
+php artisan make:model Province
+php artisan make:model City
+php artisan make:model Bank
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+* Step 4: Validation Rules
+Define validation rules in the EmployeeController for the input forms.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+* Step 5: Controllers
+php artisan make:controller EmployeeController
+php artisan make:controller ProvinceController
+php artisan make:controller CityController
+php artisan make:controller BankController
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+* Step 6: Routes
+Define routes in routes/web.php for CRUD operations.
 
-## Learning Laravel
+* Step 7: Views
+Create Blade templates in the resources/views directory.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+sampel Validation Rules in Controller
+public function store(Request $request)
+{
+    $validatedData = $request->validate([
+        'first_name' => 'required|string',
+        'last_name' => 'required|string',
+        'date_of_birth' => 'required|date',
+        'phone_number' => 'required|regex:/^\d+$/',
+        'email' => 'required|email',
+        // Add more validation rules as needed
+    ]);
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+    // Create new employee
+}
 
-## Laravel Sponsors
+public function update(Request $request, Employee $employee)
+{
+    $validatedData = $request->validate([
+        'first_name' => 'required|string',
+        'last_name' => 'required|string',
+        'date_of_birth' => 'required|date',
+        'phone_number' => 'required|regex:/^\d+$/',
+        'email' => 'required|email',
+        // Add more validation rules as needed
+    ]);
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+    // Update employee
+}
 
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This is a basic setup. You'll need to add more functionality and customization according to your project requirements, such as dropdown population, handling file uploads for KTP, filtering employees, etc. Additionally, you may want to implement authentication and authorization for user management.
