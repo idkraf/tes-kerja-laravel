@@ -19,6 +19,7 @@ Route::get('/', function () {
 });
 
 Route::controller(EmployeeController::class)->group(function () {
+    Route::get('/employee/add/{id}', 'add')->name('employee.add');
     Route::get('/employee/edit/{id}', 'edit')->name('employee.edit');
     Route::get('/employee/destroy/{id}', 'destroy')->name('employee.destroy');
 });
